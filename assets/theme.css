@@ -7035,3 +7035,23 @@ hr {
 .header__top ul {
   margin: 0;
 }
+.user__form a {
+  text-transform: uppercase;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.header__top--left {
+  display: flex;
+  align-items: center;
+}
+.header__top--left select {
+  padding: 0;
+  border: none;
+  font-size: 16px;
+  background: none;
+  appearance: auto;
+  outline: none;
+}

@@ -53,7 +53,11 @@
   <header class="site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %}" role="banner">
      <div class="header__top">
         <div class="header__top--left">
-            {{address.country}}
+            <select name="language">
+              {% for locale in shop.published_locales %}
+                <option selected="true">{{ locale.name }}</option>
+              {% endfor %}
+            </select>
           <div class="currency__page">
              {% form 'currency' %}
               <select name="currency">
@@ -75,9 +79,12 @@
           <div class="social">
             {%render 'social-sharing' %}
           </div>
+          <div class="contact">
+            
+          </div>
         </div>
       </div>
-    <div class="grid grid--no-gutters grid--table site-header__mobile-nav">
+    <div class="grid grid--no-gutters grid--table flex-center site-header__mobile-nav">
       {% if section.settings.align_logo == 'center' %}
         {%- assign logo_classes = 'medium-up--one-third medium-up--push-one-third logo-align--center' -%}
       {% else %}
@@ -127,12 +134,12 @@
       {% if section.settings.align_logo == 'left' %}
         <nav class="grid__item medium-up--one-half small--hide" id="AccessibleNav" role="navigation">
           {% include 'site-nav', linklist: section.settings.main_linklist %}
-           <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top" data-predictive-search-open-drawer>
-            {% include 'icon-search' %}
-            <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
-          </button>
-
         </nav>
+        <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top" data-predictive-search-open-drawer>
+          {% include 'icon-search' %}
+          <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+        </button>
+
       {% endif %}
 
       <div class="grid__item {% if section.settings.align_logo == 'left' %}medium-up--one-quarter{% else %}medium-up--one-third medium-up--push-one-third{% endif %} text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
@@ -157,6 +164,14 @@
             <a href="{{ routes.account_login_url }}">Login</a>/<a href="{{ routes.account_register_url }}">sign up</a>
           </div>
 
+          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
+            {% include 'icon-spinner' %}
+            <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+            <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hidden{% endif %} critical-hidden" data-cart-count-bubble>
+              <span data-cart-count>{{ cart.item_count }}</span>
+              <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+            </div>
+          </a>
           <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
             {% include 'icon-cart' %}
             <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
