@@ -1,56 +1,4 @@
-{% if section.settings.message %}
-  <style>
-    {% if section.settings.logo != blank %}
-      .site-header__logo-image {
-        max-width: {{ section.settings.logo_max_width | escape }}px;
-      }
-    {% endif %}
-    {% if section.settings.align_logo == 'left' %}
-      .site-header__logo-image {
-        margin: 0;
-      }
-    {% endif %}
-  </style>
-{% endif %}
-
-{% include 'search-drawer' %}
-
-<div data-section-id="{{ section.id }}" data-section-type="header-section" data-header-section>
-  {% if section.settings.message %}
-    {% if section.settings.home_page_only == false or request.page_type == 'index' %}
-      <style>
-        .announcement-bar {
-          background-color: {{ section.settings.color_bg }};
-        }
-        .announcement-bar__link:hover {
-          {% assign brightness = section.settings.color_bg | color_brightness %}
-          {% if brightness <= 192 %}
-            {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
-            background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
-          {% else %}
-            {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
-            background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
-          {% endif %}
-        }
-        .announcement-bar__message {
-          color: {{ section.settings.color_text }};
-        }
-      </style>
-
-      <div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement_bar_label' | t }}">
-        {%- unless section.settings.message_link == blank -%}
-          <a href="{{ section.settings.message_link }}" class="announcement-bar__link">
-        {%- endunless -%}
-            <p class="announcement-bar__message">{{ section.settings.message_text | escape }}</p>
-        {%- unless section.settings.message_link == blank -%}
-          </a>
-        {%- endunless -%}
-      </div>
-
-    {% endif %}
-  {% endif %}
-
-  <header class="site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %}" role="banner">
+<header class="site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %}" role="banner">
      <div class="header__top">
         <div class="header__top--left">
             <select name="language">
@@ -73,7 +21,7 @@
           </div>
         </div>
         <div class="header__top--right">
-          <nav class="nav__contact">
+          <nav class="nav__contact min__size">
             {% render 'site-nav', linklist: section.settings.nav_top %}
           </nav>
           <div class="social">
@@ -86,7 +34,16 @@
       </div>
     <div class="grid grid--no-gutters grid--table flex-center site-header__mobile-nav">
       {% if section.settings.align_logo == 'center' %}
-        {%- assign logo_classes = 'medium-up--one-third medium-up--push-one-third logo-align--center' -%}
+        <div class="search__box ">
+          {% include 'searchbox' %}
+          <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top pc__hidden" data-predictive-search-open-drawer>
+            {% include 'icon-search' %}
+            <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+          </button>
+        </div>
+      {% endif %}
+      {% if section.settings.align_logo == 'center' %}
+        {%- assign logo_classes = 'logo-align--center' -%}
       {% else %}
         {%- assign logo_classes = 'medium-up--one-quarter logo-align--left' -%}
       {% endif %}
@@ -97,7 +54,7 @@
           Site name gets precedence with H1 tag on homepage, div on other pages.
         {% endcomment %}
         {% if request.page_type == 'index' %}
-          <h1 class="h2 site-header__logo">
+          <h1 class="h2 {% if section.settings.logo_align == 'center' %} text-center {% endif %} site-header__logo">
         {% else %}
           <div class="h2 site-header__logo">
         {% endif %}
@@ -142,7 +99,7 @@
 
       {% endif %}
 
-      <div class="grid__item {% if section.settings.align_logo == 'left' %}medium-up--one-quarter{% else %}medium-up--one-third medium-up--push-one-third{% endif %} text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+      <div class="{% if section.settings.align_logo == 'left' %} grid__item  medium-up--one-quarter{% endif %} site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
         <div class="site-header__icons-wrapper">
 
          
@@ -160,11 +117,11 @@
             {% endif %}
           {% endif %}
 
-          <div class="user__form">
+          <div class="user__form min__size">
             <a href="{{ routes.account_login_url }}">Login</a>/<a href="{{ routes.account_register_url }}">sign up</a>
           </div>
 
-          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
+          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart min__size">
             {% include 'icon-spinner' %}
             <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
             <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hidden{% endif %} critical-hidden" data-cart-count-bubble>
@@ -287,6 +244,57 @@
       </ul>
     </nav>
   </header>
+  {% if section.settings.message %}
+  <style>
+    {% if section.settings.logo != blank %}
+      .site-header__logo-image {
+        max-width: {{ section.settings.logo_max_width | escape }}px;
+      }
+    {% endif %}
+    {% if section.settings.align_logo == 'left' %}
+      .site-header__logo-image {
+        margin: 0;
+      }
+    {% endif %}
+  </style>
+{% endif %}
+
+{% include 'search-drawer' %}
+
+<div data-section-id="{{ section.id }}" data-section-type="header-section" data-header-section>
+  {% if section.settings.message %}
+    {% if section.settings.home_page_only == false or request.page_type == 'index' %}
+      <style>
+        .announcement-bar {
+          background-color: {{ section.settings.color_bg }};
+        }
+        .announcement-bar__link:hover {
+          {% assign brightness = section.settings.color_bg | color_brightness %}
+          {% if brightness <= 192 %}
+            {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+            background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+          {% else %}
+            {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+            background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+          {% endif %}
+        }
+        .announcement-bar__message {
+          color: {{ section.settings.color_text }};
+        }
+      </style>
+
+      <div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement_bar_label' | t }}">
+        {%- unless section.settings.message_link == blank -%}
+          <a href="{{ section.settings.message_link }}" class="announcement-bar__link">
+        {%- endunless -%}
+            <p class="announcement-bar__message">{{ section.settings.message_text | escape }}</p>
+        {%- unless section.settings.message_link == blank -%}
+          </a>
+        {%- endunless -%}
+      </div>
+
+    {% endif %}
+  {% endif %}
 
   {% if section.settings.align_logo == 'center' %}
   <nav class="small--hide border-bottom" id="AccessibleNav" role="navigation">

@@ -7055,3 +7055,27 @@ hr {
   appearance: auto;
   outline: none;
 }
+
+
+@media (max-width: 768px) {
+  .min__size {
+    display: none;
+  }
+}
+.search__box .search-bar__interior {
+  padding: 0;
+}
+.search__box .search-bar__interior .search-bar__input {
+  height: 30px;
+  min-height: auto;
+}
+@media (max-width: 768px) {
+  #SearchDrawer {
+    display: none;
+  }
+}
+ @media (min-width: 768px) {
+   .pc__hidden {
+     display: none;
+   }
+ }
