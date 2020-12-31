@@ -201,12 +201,22 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
-    var homeBanner = new Swiper('.home--banner__slide .swiper-container', {
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+    var swiper = new Swiper('.swiper-container', {
+      autoplay: {
+        delay: 4500,
+      },
+      speed: 500,
+      loop: true,
+      navigation: {
+        nextEl: ' .swiper-next',
+        prevEl: ' .swiper-prev',
+      },
+      pagination: {
+        el: ' .swiper-pagination',
+        type: 'bullets',
+        clickable: true,
     },
-  });
+    });
   </script>
 </body>
 </html>

@@ -1,154 +1,220 @@
-<style>
-  .wrapper--title__style {
-    color: {{section.settings.title_color }};
-    font-size: {{section.settings.title_font_size}}px;
-  }
-  .wrapper--content__style {
-    color: {{section.settings.content_color }};
-  }
-</style>
 <div class="home--banner__slide">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="home--banner__image">
-                <img src="{{section.settings.home_banner | img_url: '300x300'}}" alt="">
-              </div>
-              <div class="home--banner__wrapper {% if section.settings.content_alignment == "center" %} text-center {% endif %}">
-                <div class="home--banner__wrapper--title">
-                    <h4 class="{% if section.settings.banner_title != blank %} wrapper--title__style {% endif %}">{{ section.settings.banner_title }}</h4>
+            {% for block in section.blocks %}
+                {% style %}
+                  .block-{{block.id}} .wrapper--title__style {
+                    color: {{ block.settings.title_block_color }};
+                    font-size: {{ block.settings.title_block_font_size}}px;
+                  }
+                  .block-{{block.id}} .wrapper--content__style {
+                    color: {{ block.settings.content_block_color }};
+                  }
+                  .block-{{block.id}} .wrapper--btn__color {
+                    background: {{ block.settings.banner_block_button_color}};
+                    color: {{ block.settings.button_block_text_color}};
+                    text-transform: uppercase;
+                  }
+                  .block-{{block.id}} .wrapper--btn__color:hover {
+                    color: {{ block.settings.button_block_text_color}} !important;
+                    text-decoration: underline;
+                    box-shadow: 0 0 10px 0 rgba({{ block.settings.button_block_text_color }}, .3);
+                  }
+                {% endstyle %}
+              <div class="swiper-slide block-{{block.id}}">
+                <div class="home--banner__image">
+                  <img src="{{ block.settings.home_block_banner | img_url: '300x300'}}" alt="">
                 </div>
-                <div class="home--banner__wrapper--content">
-                  <p class="{% if section.settings.banner_content != blank %} wrapper--content__style {% endif %}">{{ section.settings.banner_content }}</p>
+                <div class="home--banner__wrapper {% if block.settings.content_block_alignment == "center" %} text-center {% endif %}">
+                  <div class="home--banner__wrapper--title">
+                      <h4 class="{% if block.settings.banner_block_title != blank %} wrapper--title__style {% endif %}">{{ block.settings.banner_block_title }}</h4>
+                  </div>
+                  <div class="home--banner__wrapper--content">
+                    <p class="{% if block.settings.banner_block_content != blank %} wrapper--content__style {% endif %}">{{ block.settings.banner_block_content }}</p>
+                  </div>
+                  <a href="{{block.settings.banner_block_button_link}}" class="home--wrapper__btn wrapper--btn__color {% if block.settings.banner_block_button_name == blank %} hidden {% endif %}">{{block.settings.banner_block_button_name }}</a>
                 </div>
               </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
+    <div class="swiper-prev {% if section.settings.banner_navigation == "show" %} show_navigation {% endif %}">
+      {% render 'icon-chevron-left' %}
+    </div>
+    <div class="swiper-next {% if section.settings.banner_navigation == "show" %} show_navigation {% endif %}">
+      {% render 'icon-chevron-right' %}
+    </div>
+    <div class="{% if section.settings.banner_navigation == "hidden" %} hidden_pagination {% endif %} swiper-pagination"></div>
 </div>
 {% schema %}
 {
-    "name": {
-        "cs": "Obrázek s textovým překryvem",
-        "da": "Billede med tekstoverlejring",
-        "de": "Foto mit überlegtem Text",
-        "en": "Banner with text overlay",
-        "es": "Imagen con texto superpuesto",
-        "fi": "Kuva päällä olevalla tekstillä",
-        "fr": "Image avec calque texte",
-        "it": "Immagine con testo",
-        "ja": "テキストオーバーレイ付き画像",
-        "ko": "텍스트 오버레이 포함 이미지",
-        "nb": "Bilde med tekstoverlegg",
-        "nl": "Foto met tekstoverlay",
-        "pl": "Obraz z nakładką tekstową",
-        "pt-BR": "Imagem com texto",
-        "pt-PT": "Imagem com sobreposição de texto",
-        "sv": "Bild med textöverlagring",
-        "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
-        "tr": "Metin katmanı içeren görsel",
-        "vi": "Banner có lớp phủ văn bản",
-        "zh-CN": "带文本叠加的图片",
-        "zh-TW": "附文字疊加層的圖片"
-      },
+  "name": {
+      "cs": "Obrázek s textovým překryvem",
+      "da": "Billede med tekstoverlejring",
+      "de": "Foto mit überlegtem Text",
+      "en": "Banner with text overlay",
+      "es": "Imagen con texto superpuesto",
+      "fi": "Kuva päällä olevalla tekstillä",
+      "fr": "Image avec calque texte",
+      "it": "Immagine con testo",
+      "ja": "テキストオーバーレイ付き画像",
+      "ko": "텍스트 오버레이 포함 이미지",
+      "nb": "Bilde med tekstoverlegg",
+      "nl": "Foto met tekstoverlay",
+      "pl": "Obraz z nakładką tekstową",
+      "pt-BR": "Imagem com texto",
+      "pt-PT": "Imagem com sobreposição de texto",
+      "sv": "Bild med textöverlagring",
+      "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
+      "tr": "Metin katmanı içeren görsel",
+      "vi": "Banner có lớp phủ văn bản",
+      "zh-CN": "带文本叠加的图片",
+      "zh-TW": "附文字疊加層的圖片"
+    },
     "settings": [
       {
-        "type": "image_picker",
-        "id": "home_banner",
-        "label": "Image banner"
+        "type": "radio",
+        "id": "banner_navigation",
+        "options": [
+            { "value": "show", "label": "Show"},
+            { "value": "hidden", "label": "Hidden"}
+          ],
+        "label": "Navigation",
+        "default": "hidden"
       },
       {
         "type": "radio",
-        "id": "content_alignment",
+        "id": "banner_pagination",
         "options": [
-           { "value": "left", "label": "Left"},
-           { "value": "center", "label": "Center"}
-        ],
-        "label": "Content alignment",
-        "default": "left"
-     },
-      {
-        "type": "text",
-        "id": "banner_title",
-        "label": "Title banner"
-      },
-      {
-        "type": "color",
-        "id": "title_color",
-        "label": "Color title",
-        "default": "#333"
-      },
-      {
-        "type": "range",
-        "id": "title_font_size",
-        "min": 16,
-        "max": 48,
-        "step": 1, 
-        "unit": "px",
-        "label": "Title font size",
-        "default": 24
-      },
-      {
-        "type": "textarea",
-        "id": "banner_content",
-        "label": "Content banner"
-      },
-      {
-        "type": "color",
-        "id": "content_color",
-        "label": "Color content",
-        "default": "#333"
+            { "value": "show", "label": "Show"},
+            { "value": "hidden", "label": "Hidden"}
+          ],
+        "label": "Pagination",
+        "default": "show"
       }
     ],
-    "presets": [
+  "blocks": [
     {
-      "name": {
-        "cs": "Obrázek s textovým překryvem",
-        "da": "Billede med tekstoverlejring",
-        "de": "Foto mit überlegtem Text",
-        "en": "Banner with text overlay",
-        "es": "Imagen con texto superpuesto",
-        "fi": "Kuva päällä olevalla tekstillä",
-        "fr": "Image avec calque texte",
-        "it": "Immagine con testo",
-        "ja": "テキストオーバーレイ付き画像",
-        "ko": "텍스트 오버레이 포함 이미지",
-        "nb": "Bilde med tekstoverlegg",
-        "nl": "Foto met tekstoverlay",
-        "pl": "Obraz z nakładką tekstową",
-        "pt-BR": "Imagem com sobreposição de texto",
-        "pt-PT": "Imagem com sobreposição de texto",
-        "sv": "Bild med textöverlagring",
-        "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
-        "tr": "Metin katmanı içeren görsel",
-        "vi": "Banner có lớp phủ văn bản",
-        "zh-CN": "带文本叠加的图片",
-        "zh-TW": "附文字疊加層的圖片"
+      "type": "slide",
+      "name": "Banner slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "home_block_banner",
+          "label": "Image banner"
+        },
+        {
+          "type": "radio",
+          "id": "content_block_alignment",
+          "options": [
+            { "value": "left", "label": "Left"},
+            { "value": "center", "label": "Center"}
+          ],
+          "label": "Content alignment",
+          "default": "left"
       },
-      "category": {
-        "cs": "Obrázek",
-        "da": "Billede",
-        "de": "Foto",
-        "en": "Image",
-        "es": "Imagen",
-        "fi": "Kuva",
-        "fr": "Image",
-        "it": "Immagine",
-        "ja": "画像",
-        "ko": "이미지",
-        "nb": "Bilde",
-        "nl": "Afbeelding",
-        "pl": "Obraz",
-        "pt-BR": "Imagem",
-        "pt-PT": "Imagem",
-        "sv": "Bild",
-        "th": "รูปภาพ",
-        "tr": "Görsel",
-        "vi": "Hình ảnh",
-        "zh-CN": "图片",
-        "zh-TW": "圖片"
-      }
+        {
+          "type": "text",
+          "id": "banner_block_title",
+          "label": "Title banner"
+        },
+        {
+          "type": "color",
+          "id": "title_block_color",
+          "label": "Color title"
+        },
+        {
+          "type": "range",
+          "id": "title_block_font_size",
+          "min": 16,
+          "max": 48,
+          "step": 1, 
+          "unit": "px",
+          "label": "Title font size",
+          "default": 18
+        },
+        {
+          "type": "textarea",
+          "id": "banner_block_content",
+          "label": "Content banner"
+        },
+        {
+          "type": "color",
+          "id": "content_block_color",
+          "label": "Color content"
+        },
+        {
+          "type": "url",
+          "id": "banner_block_button_link",
+          "label": "Banner button link"
+        },
+        {
+          "type": "text",
+          "id": "banner_block_button_name",
+          "label": "Button name"
+        },
+        {
+          "type": "color",
+          "id": "banner_block_button_color",
+          "label": "Button color"
+        },
+        {
+          "type": "color",
+          "id": "button_block_text_color",
+          "label": "Text color"
+        }
+      ]
     }
-  ]
+  ],
+  "presets": [
+  {
+    "name": {
+      "cs": "Obrázek s textovým překryvem",
+      "da": "Billede med tekstoverlejring",
+      "de": "Foto mit überlegtem Text",
+      "en": "Banner with text overlay",
+      "es": "Imagen con texto superpuesto",
+      "fi": "Kuva päällä olevalla tekstillä",
+      "fr": "Image avec calque texte",
+      "it": "Immagine con testo",
+      "ja": "テキストオーバーレイ付き画像",
+      "ko": "텍스트 오버레이 포함 이미지",
+      "nb": "Bilde med tekstoverlegg",
+      "nl": "Foto met tekstoverlay",
+      "pl": "Obraz z nakładką tekstową",
+      "pt-BR": "Imagem com sobreposição de texto",
+      "pt-PT": "Imagem com sobreposição de texto",
+      "sv": "Bild med textöverlagring",
+      "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
+      "tr": "Metin katmanı içeren görsel",
+      "vi": "Banner có lớp phủ văn bản",
+      "zh-CN": "带文本叠加的图片",
+      "zh-TW": "附文字疊加層的圖片"
+    },
+    "category": {
+      "cs": "Obrázek",
+      "da": "Billede",
+      "de": "Foto",
+      "en": "Image",
+      "es": "Imagen",
+      "fi": "Kuva",
+      "fr": "Image",
+      "it": "Immagine",
+      "ja": "画像",
+      "ko": "이미지",
+      "nb": "Bilde",
+      "nl": "Afbeelding",
+      "pl": "Obraz",
+      "pt-BR": "Imagem",
+      "pt-PT": "Imagem",
+      "sv": "Bild",
+      "th": "รูปภาพ",
+      "tr": "Görsel",
+      "vi": "Hình ảnh",
+      "zh-CN": "图片",
+      "zh-TW": "圖片"
+    }
+  }
+]
 }
 {% endschema %}
