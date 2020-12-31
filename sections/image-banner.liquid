@@ -1,0 +1,154 @@
+<style>
+  .wrapper--title__style {
+    color: {{section.settings.title_color }};
+    font-size: {{section.settings.title_font_size}}px;
+  }
+  .wrapper--content__style {
+    color: {{section.settings.content_color }};
+  }
+</style>
+<div class="home--banner__slide">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="home--banner__image">
+                <img src="{{section.settings.home_banner | img_url: '300x300'}}" alt="">
+              </div>
+              <div class="home--banner__wrapper {% if section.settings.content_alignment == "center" %} text-center {% endif %}">
+                <div class="home--banner__wrapper--title">
+                    <h4 class="{% if section.settings.banner_title != blank %} wrapper--title__style {% endif %}">{{ section.settings.banner_title }}</h4>
+                </div>
+                <div class="home--banner__wrapper--content">
+                  <p class="{% if section.settings.banner_content != blank %} wrapper--content__style {% endif %}">{{ section.settings.banner_content }}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "name": {
+        "cs": "Obrázek s textovým překryvem",
+        "da": "Billede med tekstoverlejring",
+        "de": "Foto mit überlegtem Text",
+        "en": "Banner with text overlay",
+        "es": "Imagen con texto superpuesto",
+        "fi": "Kuva päällä olevalla tekstillä",
+        "fr": "Image avec calque texte",
+        "it": "Immagine con testo",
+        "ja": "テキストオーバーレイ付き画像",
+        "ko": "텍스트 오버레이 포함 이미지",
+        "nb": "Bilde med tekstoverlegg",
+        "nl": "Foto met tekstoverlay",
+        "pl": "Obraz z nakładką tekstową",
+        "pt-BR": "Imagem com texto",
+        "pt-PT": "Imagem com sobreposição de texto",
+        "sv": "Bild med textöverlagring",
+        "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
+        "tr": "Metin katmanı içeren görsel",
+        "vi": "Banner có lớp phủ văn bản",
+        "zh-CN": "带文本叠加的图片",
+        "zh-TW": "附文字疊加層的圖片"
+      },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "home_banner",
+        "label": "Image banner"
+      },
+      {
+        "type": "radio",
+        "id": "content_alignment",
+        "options": [
+           { "value": "left", "label": "Left"},
+           { "value": "center", "label": "Center"}
+        ],
+        "label": "Content alignment",
+        "default": "left"
+     },
+      {
+        "type": "text",
+        "id": "banner_title",
+        "label": "Title banner"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Color title",
+        "default": "#333"
+      },
+      {
+        "type": "range",
+        "id": "title_font_size",
+        "min": 16,
+        "max": 48,
+        "step": 1, 
+        "unit": "px",
+        "label": "Title font size",
+        "default": 24
+      },
+      {
+        "type": "textarea",
+        "id": "banner_content",
+        "label": "Content banner"
+      },
+      {
+        "type": "color",
+        "id": "content_color",
+        "label": "Color content",
+        "default": "#333"
+      }
+    ],
+    "presets": [
+    {
+      "name": {
+        "cs": "Obrázek s textovým překryvem",
+        "da": "Billede med tekstoverlejring",
+        "de": "Foto mit überlegtem Text",
+        "en": "Banner with text overlay",
+        "es": "Imagen con texto superpuesto",
+        "fi": "Kuva päällä olevalla tekstillä",
+        "fr": "Image avec calque texte",
+        "it": "Immagine con testo",
+        "ja": "テキストオーバーレイ付き画像",
+        "ko": "텍스트 오버레이 포함 이미지",
+        "nb": "Bilde med tekstoverlegg",
+        "nl": "Foto met tekstoverlay",
+        "pl": "Obraz z nakładką tekstową",
+        "pt-BR": "Imagem com sobreposição de texto",
+        "pt-PT": "Imagem com sobreposição de texto",
+        "sv": "Bild med textöverlagring",
+        "th": "การวางซ้อนรูปภาพพร้อมข้อความ",
+        "tr": "Metin katmanı içeren görsel",
+        "vi": "Banner có lớp phủ văn bản",
+        "zh-CN": "带文本叠加的图片",
+        "zh-TW": "附文字疊加層的圖片"
+      },
+      "category": {
+        "cs": "Obrázek",
+        "da": "Billede",
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fi": "Kuva",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "ko": "이미지",
+        "nb": "Bilde",
+        "nl": "Afbeelding",
+        "pl": "Obraz",
+        "pt-BR": "Imagem",
+        "pt-PT": "Imagem",
+        "sv": "Bild",
+        "th": "รูปภาพ",
+        "tr": "Görsel",
+        "vi": "Hình ảnh",
+        "zh-CN": "图片",
+        "zh-TW": "圖片"
+      }
+    }
+  ]
+}
+{% endschema %}

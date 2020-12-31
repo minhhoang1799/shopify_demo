@@ -3801,11 +3801,13 @@ hr {
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 0.4rem;
-  top: 0.2rem;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
   font-weight: bold;
-  background-color: var(--color-btn-primary);
-  color: var(--color-btn-primary-text);
+  background: #fff;
+    color: #000;
+    font-size: 16px;
   border-radius: 50%;
   min-width: 1em;
   height: 1em; }
@@ -7079,3 +7081,41 @@ hr {
      display: none;
    }
  }
+
+ .align__center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+
+.swiper-slide {
+  position: relative;
+}
+.home--banner__image {
+   width: 100%;
+   height: 500px;
+}
+.home--banner__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.home--banner__wrapper {
+   position: absolute;
+   top: 50%;
+   left: 20%;
+   transform: translateY(-50%);
+   z-index: 99;
+   max-width: 300px;
+}
+.wrapper--content__style {
+  display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.wrapper--title__style {
+  font-weight: 700;
+  text-transform: uppercase;
+}

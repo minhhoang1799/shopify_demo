@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
   <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
   {%- assign header_font = settings.type_header_font -%}
   {%- assign base_font = settings.type_base_font -%}
@@ -153,6 +153,7 @@
 
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>
+  <script src="{{ 'jquery.min.js.js' | asset_url }}" ></script>
 
   <script type="text/javascript">
     if (window.MSInputMethodContext && document.documentMode) {
@@ -199,6 +200,13 @@
   </ul>
   <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="./assets/jquery.min.js"></script>
+  <script>
+    var homeBanner = new Swiper('.home--banner__slide .swiper-container', {
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+  </script>
 </body>
 </html>

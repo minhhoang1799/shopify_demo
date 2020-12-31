@@ -121,8 +121,8 @@
             <a href="{{ routes.account_login_url }}">Login</a>/<a href="{{ routes.account_register_url }}">sign up</a>
           </div>
 
-          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart min__size">
-            {% include 'icon-spinner' %}
+          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart align__center min__size">
+            {% include 'icon-heart' %}
             <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
             <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hidden{% endif %} critical-hidden" data-cart-count-bubble>
               <span data-cart-count>{{ cart.item_count }}</span>
