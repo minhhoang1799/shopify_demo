@@ -73,6 +73,9 @@
   - Remove `outline: none` from `.slick-dots li button`
 ==============================================================================*/
 /*================ Slick Slider SCSS ================*/
+@import "grid.css";
+
+
 .slick-slider {
   position: relative;
   display: block;
@@ -7188,4 +7191,147 @@ hr {
     left: 20%;
     transform: translate(-20%,-50%);
   }
+}
+.collection--item {
+  position: relative;
+}
+.collection--item__image img {
+  width: 100%;
+  height: 100%;
+}
+.collection--item__link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 100%;
+  text-align: center;
+}
+.collection--item__title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+@media (min-width: 1024px) {
+  .collection--item__image {
+    overflow: hidden;
+  }
+  .collection--item__btn a{
+    opacity: 0;
+    background: #333;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 20px;
+  }
+  .collection--item:hover .collection--item__image{
+   transition: all ease-in-out .5s;
+  }
+  .collection--item:hover .collection--item__image img{
+    transform: scale(1.1);
+    transition: all ease-in-out .5s;
+   }
+   .collection--item:hover .collection--item__btn{
+    margin-top: 10px;
+   }
+   .collection--item:hover .collection--item__btn a {
+     color: #fff;
+      opacity: 1;
+   }
+}
+figure {
+  margin: 0;
+}
+.product--item__image {
+  width: 100%;
+  height: 100%;
+}
+.product--item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product--option__color .btn--color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn--color li {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+  border: 2px solid #000;
+  border-radius: 50%;
+}
+.btn--color__Red {
+  background: red;
+}
+.btn--color__Gray {
+  background: gray;
+}
+.btn--color__Yellow {
+  background: yellow;
+}
+.btn--color__Blue {
+  background: blue;
+}
+.btn--size {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.btn--size li {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+  margin: 0 5px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product--item__tags {
+  text-align: center;
+}
+.product--item__name {
+  text-align: center;
+}
+.product--price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product--price li {
+  margin: 0 10px;
+}
+.product--price li p {
+  font-weight: 600;
+  color: #888;
+}
+.product--price__old {
+  text-decoration: line-through;
+}
+.color__red {
+  color: red !important
+}
+.product--item figure {
+  position: relative;
+}
+.sale {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.sale span {
+  display: none;
+  background: red;
+  text-transform: uppercase;
+  padding: 5px;
+  font-size: 12px;
+  color: #fff;
+}
+.sale .show span  {
+  display: block;
 }
