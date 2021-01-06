@@ -9,6 +9,17 @@
     {% when 5 %}
       {% assign grid_item = 'col-lg-5' %} 
   {% endcase %}
+  <style>
+    .product--item__btn {
+      background: {{ section.settings.btn_background_color }};
+    }
+    .product--item__btn a {
+      color: {{ section.settings.btn_text_color }}
+    }
+    .product--item__btn a:hover {
+      color: {{ section.settings.btn_text_color }}
+    }
+  </style>
 
   {%- assign collection = collections[section.settings.collection] -%}
   {% if collection.title != blank %}
@@ -27,6 +38,9 @@
             <figure>
               <div class="product--item__image">
                 <img src="{{ product | img_url }}" alt="">
+                <div class="product--item__btn">
+                  <a href="{{product.url}}">{{ section.settings.btn_product }}</a>
+                </div>
               </div>
               <figcaption>
                <div class="product--option">
@@ -50,9 +64,11 @@
                   <span class="product--item__tag ">{{tags}}</span>
                 {% endfor %}
                </div>
-               <h4 class="product--item__name">
-                 {{product.title}}
-               </h4>
+               <div class="product--item__name">
+                 <a href="{{product.url}}" >
+                   {{product.title}}
+                 </a>
+               </div>
                <div class="product--item__price">
                   <ul class="product--price">
                     <li>
@@ -67,7 +83,6 @@
               <div class="sale ">
                 <span class="{% if product.compare_at_price != blank %} show {% endif %}">sale</span>
               </div>
-              <a href="{{product.url}}">url</a>
             </figure>
           </div>
         </div>
@@ -299,6 +314,21 @@
         "zh-TW": "顯示「檢視全部」按鈕"
       },
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "btn_product",
+      "label": "Background button"
+    },
+    {
+      "type": "color",
+      "id": "btn_background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Text color"
     }
   ],
   "presets": [
